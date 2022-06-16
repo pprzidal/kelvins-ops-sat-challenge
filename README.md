@@ -1,92 +1,101 @@
-# the_opssat_case_starter_kit
+# AI on the edge: "the OPS-SAT case" - Starter kit
+<!--
+*** Based on https://github.com/othneildrew/Best-README-Template
+-->
 
-Starter kit for the "OPS-SAT case Kelvins competition"
+
+
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+    Scripts to clean and prepare the OPSSAT competition dataset.
+</p>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li><a href="#directory-content">Directory content</a></li>
+    <li><a href="#getting-started">Getting started</a></li>
+    <li><a href="#competition-data">Competition data</a></li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+This is the starting kit for the competition: `AI on the edge: "the OPS-SAT case" - Starter kit`. 
+
+## Directory content
+
+The `competition_toolkit` includes:
+
+* `efficientnet_lite.py`, this is a slightly edited version of the [Keras](https://keras.io/api/models/model/)-based implementation of the `EfficientNet-lite-0` deep neural network included in     [efficientnet-lite-keras](https://github.com/sebastian-sz/efficientnet-lite-keras). This is the Deep Neural Network model that **shall** be used for the competition. **Submissions exploiting different architecture will be discarded**. 
+* `starter_kit_notebook.ipynb`: this notebook shows how to load the competition dataset, instatiate and train an `EfficientNet-lite-0` model, included in `efficientnet_lite.py` and evaluate it by using the metrics described in [here](https://kelvins.esa.int/opssat/scoring/).
+* `serverside_evaluation.ipynb`: this script shows the pipeline used to evaluate a submission. Such a pipeline includes, `HDF5` weights loading and model checking, conversion from `TF (Keras)` model to `tflite` by using `float16` quantization format (please, refer to [post-training float16 - quantization](https://www.tensorflow.org/lite/performance/post_training_float16_quant)) and score calculation by using the metrics described [here](https://kelvins.esa.int/opssat/scoring/).
+* `pytorch_to_tf_conversion.ipynb`: this notebook provides a utility to converts `EfficientNet-lite-0` models trained in [PyTorch](https://pytorch.org/) by using the [efficientnet-lite-pytorch](https://pypi.org/project/efficientnet-lite-pytorch/) and [efficientnet_lite0_pytorch_model](https://pypi.org/project/efficientnet-lite0-pytorch-model/) python packages to the `TF (Keras)` model included in `efficientnet_lite.py`.
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+Clone this repository: 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/EuropeanSpaceAgency/the_opssat_case_starter_kit.git
-git branch -M main
-git push -uf origin main
+git clone https://gitlab.com/EuropeanSpaceAgency/the_opssat_case_starter_kit.git
+cd the_opssat_case_starter_kit
 ```
 
-## Integrate with your tools
+We strongly encourage the competitor to install the following versions for each package: 
 
-- [ ] [Set up project integrations](https://gitlab.com/EuropeanSpaceAgency/the_opssat_case_starter_kit/-/settings/integrations)
+* `python` **3.9**
+* `tensorflow` **2.7.0**
+* `numpy` **1.21.1**
 
-## Collaborate with your team
+To this aim, you can run: 
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```
+ conda update conda
+ conda create --name opssat python=3.9 numpy jupyter
+ conda activate opssat
+ conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+ python3 -m pip install tensorflow
+ pip install scikit_learn==1.0.2
+ ```
 
-## Test and Deploy
+ To test the correct installation of `tensorflow`, you can run:
 
-Use the built-in continuous integration in GitLab.
+ ```
+ python
+ import tensorflow
+ ```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+ If you get a `PROTOBUF` error, you can fix it by running: 
 
-***
+ ```
+ conda install protobuf=3.20.1
+ ```
 
-# Editing this README
+If you want to use the `pytorch_to_tf_conversion.ipynb` notebook to convert a model trained on `Pytorch` and based on [efficientnet-lite-pytorch](https://pypi.org/project/efficientnet-lite-pytorch/) and [efficientnet_lite0_pytorch_model](https://pypi.org/project/efficientnet-lite0-pytorch-model/), you need to run the following commands to install `efficientnet_lite0_pytorch_model` and `efficientnet_lite0_pytorch_model`:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```
+pip install efficientnet_lite_pytorch
+pip install efficientnet_lite0_pytorch_model
+```
+	
+## Competition data
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+The competition dataset can be downloaded from the following `Zenodo` [link](https://zenodo.org/record/6524750). Consecutively to the download, proceed as follows:
 
-## Name
-Choose a self-explaining name for your project.
+1. Create a directory `ops_sat_competiton_official`.
+2. Unzip `ops_sat_competiton_official.zip` in the `ops_sat_competiton_official`. 
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Once unzipped, the `ops_sat_competiton_official` will contain:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+ * a subdirectory for each of the 8 competition class: `Agricultural`, `Cloud`, `Mountain`, `Natural`,`River`, `Sea_ice`, `Snow`, and `Water`. Each of this subdirectory includes 10 200x200x3-patches of that class (labeled traing data).
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+ * a subdirectory `images` containing 26 2048x1944x3 or 2048x1942x3 raw OPS-SAT satellite images. The competitors can dispose of these images to implement a training strategy to improve their models.
+ **N.B.**: `images` **DOES NOT** contain data of one of the competition class. Therefore, to run the notebooks correctly, the directory `images` **shall be removed** from the `ops_sat_competiton_official` directory to run the previous notebooks correctly. 
