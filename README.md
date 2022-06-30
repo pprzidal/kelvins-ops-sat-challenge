@@ -39,6 +39,7 @@ The `competition_toolkit` includes:
 * `starter_kit_notebook.ipynb`: this notebook shows how to load the competition dataset, instatiate and train an `EfficientNet-lite-0` model, included in `efficientnet_lite.py` and evaluate it by using the metrics described in [here](https://kelvins.esa.int/opssat/scoring/).
 * `serverside_evaluation.ipynb`: this script shows the pipeline used to evaluate a submission. Such a pipeline includes, `HDF5` weights loading and model checking, conversion from `TF (Keras)` model to `tflite` by using `float16` quantization format (please, refer to [post-training float16 - quantization](https://www.tensorflow.org/lite/performance/post_training_float16_quant)) and score calculation by using the metrics described [here](https://kelvins.esa.int/opssat/scoring/).
 * `pytorch_to_tf_conversion.ipynb`: this notebook provides a utility to converts `EfficientNet-lite-0` models trained in [PyTorch](https://pytorch.org/) by using the [efficientnet-lite-pytorch](https://pypi.org/project/efficientnet-lite-pytorch/) and [efficientnet_lite0_pytorch_model](https://pypi.org/project/efficientnet-lite0-pytorch-model/) python packages to the `TF (Keras)` model included in `efficientnet_lite.py`.
+* `model_pytorch_baseline.pth`: This is an example of a valid `pytorch` model (same as the competition baseline) which is used to showcase its translation to a valid submission file.
 
 ## Getting started
 
@@ -62,10 +63,12 @@ To create a similar environment on your machine, assuming you are in an updated 
 ```
  conda create --name opssat python=3.9 numpy jupyter scikit_learn
  conda activate opssat
- python3 -m pip install tensorflow
+ python3 -m pip install tensorflow==2.7
  ```
 
-If you have GPUs (not strictly needed fot he notebooks, but highly useful for the competition) you will also need to install the correct versiosns of `cudatoolkit` and `cudnn` before the tensorflow installation.
+If you have GPUs (not strictly needed fot he notebooks, but highly useful for the competition) you will also need to install the correct versions of `cudatoolkit` and `cudnn` before the tensorflow installation.
+
+Note that we pinned the tensorflow version and python version: the notebooks in this starter kit may break if different versions are used, since the tensorflow/keras API is not stable.
 
  Eventually, to test the correct installation of `tensorflow`, you can run:
 
