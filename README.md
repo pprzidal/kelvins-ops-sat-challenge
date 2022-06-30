@@ -57,9 +57,7 @@ In our servers, where the submissions are evaluated, the following version of co
 * `cudatoolkit` **11.2** 
 * `cudnn` **8.1.0**
 
-These are the exact versions running in our servers where the submissions are evaluated.
-
-To this aim, assuming you are in an updated conda base environment, you can run: 
+To create a similar environment on your machine, assuming you are in an updated conda base environment, you can run: 
 
 ```
  conda create --name opssat python=3.9 numpy jupyter scikit_learn
@@ -67,7 +65,7 @@ To this aim, assuming you are in an updated conda base environment, you can run:
  python3 -m pip install tensorflow
  ```
 
-If you have GPUs (not strictly needed fot he notebooks, but highly useful for the competition) you will also need to install before the correct versiosns of `cudatoolkit` and `cudnn`.
+If you have GPUs (not strictly needed fot he notebooks, but highly useful for the competition) you will also need to install the correct versiosns of `cudatoolkit` and `cudnn` before the tensorflow installation.
 
  Eventually, to test the correct installation of `tensorflow`, you can run:
 
