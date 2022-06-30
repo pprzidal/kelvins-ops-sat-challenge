@@ -39,6 +39,7 @@ The `competition_toolkit` includes:
 * `starter_kit_notebook.ipynb`: this notebook shows how to load the competition dataset, instatiate and train an `EfficientNet-lite-0` model, included in `efficientnet_lite.py` and evaluate it by using the metrics described in [here](https://kelvins.esa.int/opssat/scoring/).
 * `serverside_evaluation.ipynb`: this script shows the pipeline used to evaluate a submission. Such a pipeline includes, `HDF5` weights loading and model checking, conversion from `TF (Keras)` model to `tflite` by using `float16` quantization format (please, refer to [post-training float16 - quantization](https://www.tensorflow.org/lite/performance/post_training_float16_quant)) and score calculation by using the metrics described [here](https://kelvins.esa.int/opssat/scoring/).
 * `pytorch_to_tf_conversion.ipynb`: this notebook provides a utility to converts `EfficientNet-lite-0` models trained in [PyTorch](https://pytorch.org/) by using the [efficientnet-lite-pytorch](https://pypi.org/project/efficientnet-lite-pytorch/) and [efficientnet_lite0_pytorch_model](https://pypi.org/project/efficientnet-lite0-pytorch-model/) python packages to the `TF (Keras)` model included in `efficientnet_lite.py`.
+* `model_pytorch_baseline.pth`: This is an example of a valid [PyTorch](https://pytorch.org/) model (same as the competition baseline) which is used to showcase its translation to a valid submission file.
 
 ## Getting started
 
@@ -48,25 +49,28 @@ git clone https://gitlab.com/EuropeanSpaceAgency/the_opssat_case_starter_kit.git
 cd the_opssat_case_starter_kit
 ```
 
-We strongly encourage the competitor to install the following versions for each package: 
+In our servers, where the submissions are evaluated, the following version of core packages are running:
 
 * `python` **3.9**
 * `tensorflow` **2.7.0**
 * `numpy` **1.21.1**
+* `sciki_learn` **1.0.2**
+* `cudatoolkit` **11.2** 
+* `cudnn` **8.1.0**
 
-To this aim, you can run: 
+To create a similar environment on your machine, assuming you are in an updated conda base environment, you can run: 
 
 ```
- conda update conda
- conda create --name opssat python=3.9 numpy jupyter
+ conda create --name opssat python=3.9 numpy jupyter scikit_learn
  conda activate opssat
- conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
- python3 -m pip install tensorflow
- pip install scikit_learn==1.0.2
+ python3 -m pip install tensorflow==2.7
  ```
 
- To test the correct installation of `tensorflow`, you can run:
+If you have GPUs (not strictly needed fot he notebooks, but highly useful for the competition) you will also need to install the correct versions of `cudatoolkit` and `cudnn` before the tensorflow installation.
+
+Note that we pinned the tensorflow version and python version: the notebooks in this starter kit may break if different versions are used, since the tensorflow/keras API is not stable.
+
+ Eventually, to test the correct installation of `tensorflow`, you can run:
 
  ```
  python
