@@ -48,25 +48,28 @@ git clone https://gitlab.com/EuropeanSpaceAgency/the_opssat_case_starter_kit.git
 cd the_opssat_case_starter_kit
 ```
 
-We strongly encourage the competitor to install the following versions for each package: 
+In our servers, where the submissions are evaluated, the following version of core packages are running:
 
 * `python` **3.9**
 * `tensorflow` **2.7.0**
 * `numpy` **1.21.1**
+* `sciki_learn` **1.0.2**
+* `cudatoolkit` **11.2** 
+* `cudnn` **8.1.0**
 
-To this aim, you can run: 
+These are the exact versions running in our servers where the submissions are evaluated.
+
+To this aim, assuming you are in an updated conda base environment, you can run: 
 
 ```
- conda update conda
- conda create --name opssat python=3.9 numpy jupyter
+ conda create --name opssat python=3.9 numpy jupyter scikit_learn
  conda activate opssat
- conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
  python3 -m pip install tensorflow
- pip install scikit_learn==1.0.2
  ```
 
- To test the correct installation of `tensorflow`, you can run:
+If you have GPUs (not strictly needed fot he notebooks, but highly useful for the competition) you will also need to install before the correct versiosns of `cudatoolkit` and `cudnn`.
+
+ Eventually, to test the correct installation of `tensorflow`, you can run:
 
  ```
  python
