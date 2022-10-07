@@ -1,7 +1,12 @@
-ops_sat_competiton_official/
+ops_sat_competiton_official_training/
 bin/
 include/
 lib/
 lib64/
 .idea/
+share/
+.ipynb_checkpoints/
+etc/
+images/
+ops_sat_competiton_official_evaluation/
 pyvenv.cfg

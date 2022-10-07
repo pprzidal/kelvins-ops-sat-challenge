@@ -10,7 +10,7 @@ def set_interval(func, sec):
     t.start()
     return t
 
-DATA_FOLDER_NAME = 'ops_sat_competiton_official'
+DATA_FOLDER_NAME = 'ops_sat_competiton_official_training'
 
 def main():
     stop = False
